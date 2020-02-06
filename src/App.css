@@ -1,11 +1,11 @@
 .app-wrapper {
     display: grid;
     margin: 0 auto;
-    width: 1500px;
-
+    width: 1600px;
+    max-height: 600 px;
     grid-template-areas:
     "h h"
-    "n c"
+    "n p"
 ;
     grid-auto-rows: 60px 1fr;
     grid-auto-columns: 2fr 10fr;
@@ -20,12 +20,20 @@
     width: 50px;
 }
 
-.nav {
+.navbar {
     grid-area: n;
     background-color: yellow;
 }
 
-.content {
-    grid-area: c;
+.profile {
+    grid-area: p;
     background-color: aqua;
+}
+
+.background img {
+    height: 700px;
+}
+
+.ava img {
+
 }
