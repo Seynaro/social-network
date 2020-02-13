@@ -15,3 +15,8 @@
 .ava img {
 
 }
+
+.app-wrapper-content {
+    grid-area: p;
+    background-color: aqua;
+}
