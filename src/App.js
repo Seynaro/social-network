@@ -8,7 +8,6 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 const App = (props) => {
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
@@ -19,12 +18,10 @@ const App = (props) => {
                     <Route path='/profile'
                            render={ () => <Profile
                                profilePage={props.state.profilePage}
-                               addPost={props.addPost}
-                               updateNewPostText={props.updateNewPostText}
+                               dispatch={props.dispatch}
                            />}/>
                 </div>
             </div>
-        </BrowserRouter>
     );
 };
 
