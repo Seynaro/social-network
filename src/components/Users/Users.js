@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
-import {toggleFollowingProgress} from "../../redux/users-reducer";
 
 let Users = (props) => {
 
@@ -12,8 +11,7 @@ let Users = (props) => {
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
-    }
-    ;
+    };
 
 
     return <div>
@@ -35,9 +33,9 @@ let Users = (props) => {
                </div>
                <div>
                    {u.followed
-                       ? <button disabled={props.toggleFollowingProgress.some(id => id === u.id)} onClick={() => {
+                       ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                            props.toggleFollowingProgress(true, u.id);
-                           axios.delete(`https://social-network.samuraijs.com/api/1.0/follow${u.id}`, {
+                           axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                withCredentials: true,
                                headers: {
                                    "API-KEY": "dbba0bf1-4a5a-429d-93ff-298b1f5e9da0"
@@ -52,9 +50,9 @@ let Users = (props) => {
 
 
                        }}>Unfollow</button>
-                       : <button disabled={props.toggleFollowingProgress.some(id => id === u.id)} onClick={() => {
+                       : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                            props.toggleFollowingProgress(true, u.id);
-                           axios.post(`https://social-network.samuraijs.com/api/1.0/follow${u.id}`, {}, {
+                           axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                withCredentials: true,
                                headers: {
                                    "API-KEY": "dbba0bf1-4a5a-429d-93ff-298b1f5e9da0"
