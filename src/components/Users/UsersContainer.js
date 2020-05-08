@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-    followTC, getUsersThunkCreator,
+    followTC, getUsersTC,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
-    toggleIsFetching, unfollowTC,
+    unfollowTC,
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
@@ -15,11 +14,11 @@ class UsersContainer extends React.Component {
 
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     };
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
+        this.props.getUsersTC(pageNumber, this.props.pageSize)
     };
 
     render() {
@@ -55,7 +54,7 @@ export default connect(mapStateToProps,
     {
         setCurrentPage,
         setTotalUsersCount,
-        getUsersThunkCreator, followTC,
+        getUsersTC, followTC,
         unfollowTC,
     }
 )(UsersContainer);
