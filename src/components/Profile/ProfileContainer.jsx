@@ -14,7 +14,8 @@ class ProfileContainer extends React.Component {
         if(!userId) {
             userId = 2
         }
-        this.props.getUserProfileTC(userId)
+        this.props.getUserProfileTC(userId);
+        this.props.getUserStatus(userId)
     }
 
     render() {
@@ -30,6 +31,7 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 });
 
 export default compose(
