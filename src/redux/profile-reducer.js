@@ -50,27 +50,33 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const addPostActionCreator = () => {
-    return {type: ADD_POST}
-};
-const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
-const setStatus = (status) => ({type: SET_STATUS, status});
-
-export const updateNewPostTextActionCreator = (text) => {
+export const addPostAC = () => ({type: ADD_POST});
+const setUserProfileAC = (profile) => ({type: SET_USER_PROFILE, profile});
+const setStatusAC = (status) => ({type: SET_STATUS, status});
+export const updateNewPostTextAC = (text) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text}
 };
 
 export const getUserProfileTC = (userId) => (dispatch) => {
     return profileAPI.getProfile(userId)
         .then(response => {
-            dispatch(setUserProfile(response.data));
+            dispatch(setUserProfileAC(response.data));
         });
 };
 
 export const getStatusTC = (userId) => (dispatch) => {
     return profileAPI.getStatus(userId)
         .then(response => {
-            dispatch(setStatus(response.data));
+            dispatch(setStatusAC(response.data));
+        });
+};
+
+export const updateStatusTC = (status) => (dispatch) => {
+    return profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAC(status));
+            }
         });
 };
 
