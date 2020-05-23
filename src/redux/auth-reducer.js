@@ -1,7 +1,5 @@
 import {authAPI} from "../api/api";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
@@ -40,7 +38,7 @@ export const getAuthUserDataTC = () => (dispatch) => {
                 dispatch(setAuthUserData(id, email, login));
             }
         });
-}
+};
 
 
 export default authReducer;

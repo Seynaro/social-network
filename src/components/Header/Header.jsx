@@ -13,6 +13,6 @@ const Header = (props) => {
                 : <NavLink to={'/login'}>Login</NavLink>}
         </div>
     </header>
-}
+};
 
 export default Header;

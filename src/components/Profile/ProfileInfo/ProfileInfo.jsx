@@ -18,6 +18,6 @@ const ProfileInfo = (props) => {
                            updateStatusTC={props.updateStatusTC}/>
         </div>
     </div>
-}
+};
 
 export default ProfileInfo;
