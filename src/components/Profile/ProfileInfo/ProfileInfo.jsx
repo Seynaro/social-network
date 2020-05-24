@@ -9,9 +9,9 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     }
     return <div>
-        {/*<div className={classes.background}>
+        <div className={classes.background}>
             <img src='https://kogdakotika.net/media/post_images/title_page_m_ChtRYfI.jpg' alt=""></img>
-        </div>*/}
+        </div>
         <div className={classes.descriptionBlock}>
             <img src={props.profile.photos.large} />
             <ProfileStatus status={props.status}
