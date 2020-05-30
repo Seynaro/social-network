@@ -120,7 +120,4 @@ export const unfollowTC = (userId) => {
     }
 };
 
-
-
-
 export default usersReducer;

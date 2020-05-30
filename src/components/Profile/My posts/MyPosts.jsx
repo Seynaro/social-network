@@ -25,6 +25,7 @@ const MyPosts = (props) => {
         </div>
     )
 };
+
 export default MyPosts;
 
 let AddNewPostForm = (props) => {
