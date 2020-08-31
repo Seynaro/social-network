@@ -12,10 +12,6 @@
     height: 500px;
 }
 
-.ava img {
-
-}
-
 .app-wrapper-content {
     grid-area: p;
     background-color: aqua;
