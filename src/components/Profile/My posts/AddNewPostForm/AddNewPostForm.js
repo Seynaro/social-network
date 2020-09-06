@@ -3,8 +3,10 @@ import {Textarea} from "../../../Common/Forms/Forms";
 import {maxLengthCreator, requiredField} from "../../../../utils/validators/validator";
 import React from "react";
 
+const maxLength10 = maxLengthCreator(10);
+
 let AddNewPostForm = (props) => {
-    const maxLength10 = maxLengthCreator(10);
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
