@@ -42,8 +42,8 @@ export const loginTC = (email, password, rememberMe) => (dispatch) => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserDataTC())
             } else {
-                let action = stopSubmit("login", {emeil: "Email is wrong"});
-                dispatch(action)
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+                dispatch(stopSubmit("login", {_error: message}))
             }
         });
 };
