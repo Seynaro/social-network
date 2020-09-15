@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    followTC, getUsersTC,
+    followTC, requestUsersTC,
     setCurrentPage,
     setTotalUsersCount,
     unfollowTC,
@@ -10,17 +10,24 @@ import Users from "./Users";
 import Preloader from "../Common/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress, getIsFetching,
+    getPageSize,
+    getTotalUserCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 class UsersContainer extends React.Component {
 
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsersTC(this.props.currentPage, this.props.pageSize)
     };
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsersTC(pageNumber, this.props.pageSize)
+        this.props.requestUsersTC(pageNumber, this.props.pageSize)
     };
 
     render() {
@@ -41,7 +48,7 @@ class UsersContainer extends React.Component {
 
 }
 
-let mapStateToProps = (state) => {
+/*let mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -49,6 +56,17 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         followingInProgress: state.usersPage.followingInProgress,
         isFetching: state.usersPage.isFetching
+    }
+};*/
+
+let mapStateToProps = (state) => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUserCount(state),
+        currentPage: getCurrentPage(state),
+        followingInProgress: getFollowingInProgress(state),
+        isFetching: getIsFetching(state)
     }
 };
 
@@ -58,9 +76,7 @@ export default compose(
         {
             setCurrentPage,
             setTotalUsersCount,
-            getUsersTC, followTC,
+            requestUsersTC, followTC,
             unfollowTC,
-        }
-    ),
-    withAuthRedirect
-)(UsersContainer)
+        })
+    )(UsersContainer);
