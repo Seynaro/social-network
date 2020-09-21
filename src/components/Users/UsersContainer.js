@@ -8,7 +8,6 @@ import {
 import {connect} from "react-redux";
 import Users from "./Users";
 import Preloader from "../Common/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
     getCurrentPage,
