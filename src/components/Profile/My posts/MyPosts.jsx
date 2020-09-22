@@ -3,23 +3,30 @@ import Post from "./Post/Post";
 import classes from "./MyPosts.module.css"
 import {AddNewPostFormRedux} from "./AddNewPostForm/AddNewPostForm";
 
-const MyPosts = (props) => {
+class MyPosts extends React.Component {
 
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps != this.props || nextState != this.state;
+    }
 
-    let onAddPost = (values) => {
-        props.addPost(values.newPostText);
-    };
+    render() {
 
-    return (
-        <div className={classes.postsBlock}>
-            <h3>My posts</h3>
-            <AddNewPostFormRedux onSubmit={onAddPost}/>
-            <div className={classes.posts}>
-                {postsElements}
+        let postsElements = this.props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
+
+        let onAddPost = (values) => {
+            this.props.addPost(values.newPostText);
+        };
+
+        return (
+            <div className={classes.postsBlock}>
+                <h3>My posts</h3>
+                <AddNewPostFormRedux onSubmit={onAddPost}/>
+                <div className={classes.posts}>
+                    {postsElements}
+                </div>
             </div>
-        </div>
-    )
-};
+        )
+    }
+}
 
 export default MyPosts;
