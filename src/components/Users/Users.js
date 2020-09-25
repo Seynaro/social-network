@@ -3,9 +3,9 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
 import {NavLink} from "react-router-dom";
 
-let Users = (props) => {
+let Users = ({totalUserCount, pageSize, currentPage, followingInProgress, followTC, onPageChanged, unfollowTC, users}) => {
 
-    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
+    let pagesCount = Math.ceil(totalUserCount / pageSize);
 
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -16,14 +16,14 @@ let Users = (props) => {
     return <div>
         <div>
             {pages.map(p => {
-                return <span className={props.currentPage === p && styles.selectedPage}
+                return <span className={currentPage === p && styles.selectedPage}
                              onClick={(e) => {
-                                 props.onPageChanged(p);
+                                 onPageChanged(p);
                              }}>{p}</span>
             })};
         </div>
         {
-            props.users.map(u => <div>
+            users.map(u => <div>
             <span>
                <div>
                    <NavLink to={'/profile/' + u.id}>
@@ -33,14 +33,14 @@ let Users = (props) => {
                </div>
                <div>
                    {u.followed
-                       ? <button disabled={props.followingInProgress
+                       ? <button disabled={followingInProgress
                            .some(id => id === u.id)}
-                                 onClick={() => { props.unfollowTC(u.id) }
+                                 onClick={() => { unfollowTC(u.id) }
                                  }>Unfollow</button>
 
-                       : <button disabled={props.followingInProgress
+                       : <button disabled={followingInProgress
                            .some(id => id === u.id)}
-                                 onClick={() => { props.followTC(u.id) }
+                                 onClick={() => { followTC(u.id) }
                                  }>Follow</button>}
                </div>
             </span>
