@@ -4,18 +4,15 @@ import Preloader from "../../Common/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
 
-const ProfileInfo = (props) => {
-    if(!props.profile) {
+const ProfileInfo = ({profile, status, updateStatusTC}) => {
+    if(!profile) {
         return <Preloader/>
     }
     return <div>
-        {/*<div className={classes.background}>
-            <img src='https://kogdakotika.net/media/post_images/title_page_m_ChtRYfI.jpg' alt=""></img>
-        </div>*/}
         <div className={classes.descriptionBlock}>
-            <img src={props.profile.photos.large} />
-            <ProfileStatus status={props.status}
-                           updateStatusTC={props.updateStatusTC}/>
+            <img src={profile.photos.large} />
+            <ProfileStatus status={status}
+                           updateStatusTC={updateStatusTC}/>
         </div>
     </div>
 };
