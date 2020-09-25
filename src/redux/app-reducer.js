@@ -9,7 +9,7 @@ let initialState = {
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'INITIALIZED_SUCCESS':
+        case 'app/INITIALIZED_SUCCESS':
             return {
                 ...state,
                 initialized: true,
