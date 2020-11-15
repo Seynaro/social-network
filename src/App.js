@@ -20,14 +20,14 @@ const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileCo
 
 class App extends React.Component {
 
-    /*componentDidMount() {
+    componentDidMount() {
         this.props.initializeApp();
-    }*/
+    }
 
     render() {
-        /*if(!this.props.initialized) {
+        if(!this.props.initialized) {
             return <Preloader/>
-        }*/
+        }
 
         return (
             <div className='app-wrapper'>
@@ -48,12 +48,10 @@ class App extends React.Component {
     }
 }
 
-/*const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);*/
-
-export default App;
+    connect(mapStateToProps, {initializeApp}))(App);
