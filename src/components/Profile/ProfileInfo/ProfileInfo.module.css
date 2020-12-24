@@ -2,7 +2,7 @@
     padding: 10px;
 }
 
-.background img {
-    width: 1300px;
-    height: 600px;
+.mainPhoto {
+    max-width: 200px;
+    border-radius: 50%;
 }
