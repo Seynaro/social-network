@@ -17,9 +17,9 @@ const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileCo
 
 class App extends React.Component {
 
-    /*componentDidMount() {
+    componentDidMount() {
         this.props.initializeApp();
-    }*/
+    }
 
     render() {
         if(!this.props.initialized) {
