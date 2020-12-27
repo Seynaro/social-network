@@ -4,6 +4,7 @@ const ADD_POST = 'profile/ADD-POST';
 const DELETE_POST = 'profile/DELETE-POST';
 const SET_USER_PROFILE = 'profile/SET-USER-PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 let initialState = {
     posts: [
@@ -41,6 +42,11 @@ const profileReducer = (state = initialState, action) => {
                 status: action.status,
             };
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}}
+            };
         default:
             return state;
     }
@@ -50,6 +56,7 @@ export const addPostAC = (newPostText) => ({type: ADD_POST, newPostText});
 export const deletePostAC = (postId) => ({type: DELETE_POST, postId})
 const setUserProfileAC = (profile) => ({type: SET_USER_PROFILE, profile});
 const setStatusAC = (status) => ({type: SET_STATUS, status});
+const savePhotoSuccessAC = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 export const getUserProfileTC = (userId) => async (dispatch) => {
     let response = await profileAPI.getProfile(userId)
@@ -68,6 +75,14 @@ export const updateStatusTC = (status) => async (dispatch) => {
 
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status));
+    }
+};
+
+export const savePhotoTC = (file) => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccessAC(response.data.data.photos));
     }
 };
 
