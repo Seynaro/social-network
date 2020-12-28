@@ -19,6 +19,23 @@ const ProfileInfo = (props) => {
         <div className={classes.descriptionBlock}>
             <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto} />
             {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+
+            <div>
+                <b>Full name</b>: {profile.fullName}
+            </div>
+            <div>
+                <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
+            </div>
+            <div>
+                <b>My professional skills</b>: {profile.lookingForAJobDescription}
+            </div>
+            <div>
+                <b>About me</b>: {profile.aboutMe}
+            </div>
+            <div>
+                <b>Contacts</b>: {profile.contacts}
+            </div>
+
             <ProfileStatus status={props.status}
                            updateStatusTC={props.updateStatusTC}/>
         </div>
