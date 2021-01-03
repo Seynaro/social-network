@@ -5,41 +5,51 @@ import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/user.jpg";
 
 const ProfileInfo = (props) => {
-    if(!props.profile) {
+    if (!props.profile) {
         return <Preloader/>
     }
 
     const onMainPhotoSelected = (e) => {
-        if(e.target.files.length) {
+        if (e.target.files.length) {
             props.savePhoto(e.target.files[0])
         }
     }
 
-    return <div>
+    return (
         <div className={classes.descriptionBlock}>
-            <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto} />
+            <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto}/>
             {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
-
-            <div>
-                <b>Full name</b>: {profile.fullName}
-            </div>
-            <div>
-                <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
-            </div>
-            <div>
-                <b>My professional skills</b>: {profile.lookingForAJobDescription}
-            </div>
-            <div>
-                <b>About me</b>: {profile.aboutMe}
-            </div>
-            <div>
-                <b>Contacts</b>: {profile.contacts}
-            </div>
-
+            <ProfileData profile={props.profile} />
             <ProfileStatus status={props.status}
                            updateStatusTC={props.updateStatusTC}/>
         </div>
-    </div>
+    )
 };
+
+const ProfileData = ({profile}) => {
+    return <div>
+        <div>
+            <b>Full name</b>: {profile.fullName}
+        </div>
+        <div>
+            <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
+        </div>
+        <div>
+            <b>My professional skills</b>: {profile.lookingForAJobDescription}
+        </div>
+        <div>
+            <b>About me</b>: {profile.aboutMe}
+        </div>
+        <div>
+            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+        })}
+        </div>
+    </div>
+}
+
+const Contact = ({contactTitle, contactValue}) => {
+    return <div className={classes.contact}><b>{contactTitle}</b>: {contactValue}</div>
+}
 
 export default ProfileInfo;
