@@ -9,6 +9,8 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     }
 
+    const [editMode, setEditMode] = React.useState(false)
+
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0])
@@ -19,15 +21,21 @@ const ProfileInfo = (props) => {
         <div className={classes.descriptionBlock}>
             <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto}/>
             {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
-            <ProfileData profile={props.profile} />
+            {editMode
+                ? <ProfileDataForm profile={props.profile}/>
+                : <ProfileData profile={props.profile} isOwner={props.isOwner}
+                               goToEditMode={() => {setEditMode(true)}}/>}
             <ProfileStatus status={props.status}
                            updateStatusTC={props.updateStatusTC}/>
         </div>
     )
 };
 
-const ProfileData = ({profile}) => {
+const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return <div>
+        {isOwner && <div>
+            <button onClick={goToEditMode}>edit</button>
+        </div>}
         <div>
             <b>Full name</b>: {profile.fullName}
         </div>
@@ -46,6 +54,9 @@ const ProfileData = ({profile}) => {
         })}
         </div>
     </div>
+}
+
+const ProfileDataForm = ({profile}) => {
 }
 
 const Contact = ({contactTitle, contactValue}) => {
