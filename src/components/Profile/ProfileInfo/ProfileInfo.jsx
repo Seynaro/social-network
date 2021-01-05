@@ -1,32 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/user.jpg";
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
+const ProfileInfo = ({profile, savePhoto, status, updateStatusTC, isOwner}) => {
 
-    const [editMode, setEditMode] = React.useState(false)
+    if (!profile) {
+        return <Preloader/>
+    };
+
+    const [editMode, setEditMode] = useState(false);
 
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
-            props.savePhoto(e.target.files[0])
+            savePhoto(e.target.files[0])
         }
     }
 
     return (
         <div className={classes.descriptionBlock}>
-            <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto}/>
-            {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+            <img src={profile.photos.large || userPhoto} className={classes.mainPhoto}/>
+
+            {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+
             {editMode
-                ? <ProfileDataForm profile={props.profile}/>
-                : <ProfileData profile={props.profile} isOwner={props.isOwner}
-                               goToEditMode={() => {setEditMode(true)}}/>}
-            <ProfileStatus status={props.status}
-                           updateStatusTC={props.updateStatusTC}/>
+                ? <ProfileDataForm profile={profile}/>
+                : <ProfileData profile={profile} isOwner={isOwner}
+                               goToEditMode={() => {
+                                   setEditMode(true)
+                               }}/>}
+
+            <ProfileStatus status={status}
+                           updateStatusTC={updateStatusTC}/>
         </div>
     )
 };
@@ -57,6 +63,7 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
 }
 
 const ProfileDataForm = ({profile}) => {
+
 }
 
 const Contact = ({contactTitle, contactValue}) => {
