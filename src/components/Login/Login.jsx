@@ -32,6 +32,23 @@ const LoginForm = ({handleSubmit, error}) => {
     </form>)
 };
 
+/*
+new LoginForm with createField
+return (
+<form onSubmit={handleSubmit}>
+{createField("Email", "email", [requiredField], Input)}
+{createField("Password", "password", [requiredField], Input, {type:"password"})}
+{createField(null, "rememberMe", [], Input, [type="checkbox"], "rememberMe")}
+{ error && <div className={style.formSummaryError}>
+            {error}
+        </div>}
+
+        <div>
+            <button>Login</button>
+)
+*/
+
+
 const LoginReduxForm = reduxForm({
     form: 'login'
 })(LoginForm);
