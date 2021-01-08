@@ -3,7 +3,7 @@ import classes from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/user.jpg";
-import ProfileDataFormReduxForm from "./ProfileDataForm";
+import ProfileDataForm from "./ProfileDataForm";
 
 const ProfileInfo = ({profile, savePhoto, status, updateStatusTC, isOwner, saveProfile}) => {
 
@@ -14,15 +14,16 @@ const ProfileInfo = ({profile, savePhoto, status, updateStatusTC, isOwner, saveP
     }
 
     const onMainPhotoSelected = (e) => {
-        if (e.target.files.length) {
+        if (e.target.files && e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     }
 
     const onSubmit = (formData) => {
-        saveProfile(formData);
-        setEditMode(false)
-    };
+         saveProfile(formData).then(
+             () => {setEditMode(false)}
+         )
+        };
 
     return (
         <div className={classes.descriptionBlock}>
@@ -31,7 +32,7 @@ const ProfileInfo = ({profile, savePhoto, status, updateStatusTC, isOwner, saveP
             {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
 
             {editMode
-                ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                 : <ProfileData profile={profile} isOwner={isOwner}
                                goToEditMode={() => {
                                    setEditMode(true)
@@ -67,7 +68,6 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
         </div>
     </div>
 }
-
 
 const Contact = ({contactTitle, contactValue}) => {
     return <div className={classes.contact}><b>{contactTitle}</b>: {contactValue}</div>
