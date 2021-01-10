@@ -47,10 +47,10 @@ export const getAuthUserDataTC = () => async (dispatch) => {
     }
 };
 
-export const loginTC = (email, password, rememberMe) => async (dispatch) => {
-    let response = await authAPI.login(email, password, rememberMe)
+export const loginTC = (email, password, rememberMe, captcha) => async (dispatch) => {
+    let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
-        dispatch(getAuthUserDataTC())
+        dispatch(getAuthUserDataTC());
     } else {
         if (response.data.resultCode === 10) {
         dispatch(getCaptchaUrlTC())};
