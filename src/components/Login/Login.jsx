@@ -10,6 +10,29 @@ import style from "./../Common/Forms/Forms.module.css";
 const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
     <form onSubmit={handleSubmit}>
+
+        {createField("Email", "email", [requiredField], Input)}
+        {createField("Password", "password", [requiredField], Input, {type:"password"})}
+        {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "rememberMe")}
+
+
+        {captchaUrl && <img src={captchaUrl} />}
+        {captchaUrl && createField("Symbols from image", "captcha", [requiredField], Input, {})}
+
+        { error && <div className={style.formSummaryError}>
+            {error}
+        </div>}
+
+        <div>
+            <button>Login</button>
+        </div>
+    </form>)
+};
+
+/* old LoginForm
+ { error && <div className={style.formSummaryError}>
+            {error}
+
         <div>
             <Field placeholder={"Email"} name={"email"}
                    validate={[requiredField]} component={Input}/>
@@ -22,20 +45,6 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
             <Field type="checkbox" name={"rememberMe"} component={Input}/>
         </div>
 
-        {captchaUrl && <img src={captchaUrl} />}
-        {captchaUrl && createField("Symbols from image", "caprcha", [requiredField], Input, {})}
-
-        { error && <div className={style.formSummaryError}>
-            {error}
-        </div>}
-
-        <div>
-            <button>Login</button>
-        </div>
-    </form>)
-};
-
-/*
 new LoginForm with createField
 return (
 <form onSubmit={handleSubmit}>
