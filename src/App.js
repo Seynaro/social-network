@@ -39,6 +39,8 @@ class App extends React.Component {
                            render={() => <UsersContainer/>}/>
                     <Route path='/login'
                            render={() => <Login/>}/>
+                    <Route path='*'
+                           render={() => <div>404 NOT FOUND</div>}/>
                 </div>
             </div>
         );
@@ -52,6 +54,8 @@ const mapStateToProps = (state) => ({
 let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
+
+// change HashRouter to BrowserRouter
 
 const SamuraiJSApp = (props) => {
     return <HashRouter basename={"https://seynaro.github.io/social-network/"}>
