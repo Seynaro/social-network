@@ -8,9 +8,9 @@ type PropsType = {
     pageSize: number
     currentPage: number
     followingInProgress: Array<number>
-    followTC: () => void
+    followTC: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    unfollowTC: () => void
+    unfollowTC: (userId: number) => void
     users: Array<UserType>
 }
 
