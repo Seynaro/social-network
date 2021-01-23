@@ -1,8 +1,6 @@
 import React from 'react';
 import {
     followTC, requestUsersTC,
-    setCurrentPage,
-    setTotalUsersCount,
     unfollowTC,
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
@@ -16,16 +14,41 @@ import {
     getTotalUserCount,
     getUsers
 } from "../../redux/users-selectors";
+import {UserType} from "../../types/types";
+import {AppStateType} from "../../redux/redux-store";
 
+// class UsersContainer extends React.Component<PropsType, StateType>
+// if component dont have local state <PropsType>
 
-class UsersContainer extends React.Component {
+// type PropsType = {}
+
+type MapStatePropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+}
+
+type OwnPropsType = {}
+
+type MapDispatchPropsType = {
+    requestUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         const {currentPage, pageSize} = this.props
         this.props.requestUsersTC(currentPage, pageSize)
     };
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber: number) => {
         const {pageSize} = this.props
         this.props.requestUsersTC(pageNumber, pageSize)
     };
@@ -34,7 +57,7 @@ class UsersContainer extends React.Component {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
 
-            <Users totalUserCount={this.props.totalUserCount}
+            <Users totalUserCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    users={this.props.users}
                    currentPage={this.props.currentPage}
@@ -48,23 +71,21 @@ class UsersContainer extends React.Component {
 
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
-        totalUserCount: getTotalUserCount(state),
+        totalUsersCount: getTotalUserCount(state),
         currentPage: getCurrentPage(state),
         followingInProgress: getFollowingInProgress(state),
         isFetching: getIsFetching(state)
     }
 };
 
-
 export default compose(
-    connect(mapStateToProps,
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
+        mapStateToProps,
         {
-            setCurrentPage,
-            setTotalUsersCount,
             requestUsersTC, followTC,
             unfollowTC,
         })
