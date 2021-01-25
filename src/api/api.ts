@@ -1,4 +1,5 @@
-import * as axios from "axios";
+import axios from "axios";
+import {ProfileType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -14,25 +15,25 @@ export const usersAPI = {
             .then(response => response.data
             )
     },
-    unfollow(userId) {
+    unfollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
-    follow(userId) {
+    follow(userId: number) {
         return instance.post(`follow/${userId}`)
     },
 };
 
 export const profileAPI = {
-    getProfile(userId) {
+    getProfile(userId: number) {
         return instance.get(`profile/${userId}`)
     },
-    getStatus(userId) {
+    getStatus(userId:number) {
         return instance.get(`profile/status/${userId}`)
     },
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance.put(`profile/status`, {status: status})
     },
-    savePhoto(photoFile) {
+    savePhoto(photoFile: any) {
         const formData = new FormData();
         formData.append('image', photoFile)
         return instance.put(`profile/photo`, formData, {
@@ -41,7 +42,7 @@ export const profileAPI = {
             }
         })
     },
-    saveProfile(profile) {
+    saveProfile(profile: ProfileType) {
         return instance.put(`profile`, profile)
     },
 };
@@ -50,7 +51,7 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(email, password, rememberMe = false, captcha = null) {
+    login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     logout() {
