@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {loginTC} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import style from "./../Common/Forms/Forms.module.css";
+import {AppStateType} from "../../redux/redux-store";
 
 const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
@@ -29,43 +30,26 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     </form>)
 };
 
-/* old LoginForm
- { error && <div className={style.formSummaryError}>
-            {error}
-
-        <div>
-            <Field placeholder={"Email"} name={"email"}
-                   validate={[requiredField]} component={Input}/>
-        </div>
-        <div>
-            <Field placeholder={"Password"} name={"password"}
-                   type={"password"} validate={[requiredField]} component={Input}/>
-        </div>
-        <div>
-            <Field type="checkbox" name={"rememberMe"} component={Input}/>
-        </div>
-
-new LoginForm with createField
-return (
-<form onSubmit={handleSubmit}>
-{createField("Email", "email", [requiredField], Input)}
-{createField("Password", "password", [requiredField], Input, {type:"password"})}
-{createField(null, "rememberMe", [], Input, [type="checkbox"], "rememberMe")}
-{ error && <div className={style.formSummaryError}>
-            {error}
-        </div>}
-
-        <div>
-            <button>Login</button>
-)
-*/
-
-
 const LoginReduxForm = reduxForm({
     form: 'login'
 })(LoginForm);
 
-const Login = ({loginTC, isAuth, captchaUrl}) => {
+type LoginType = {
+    loginTC: () => {}
+    isAuth: boolean
+
+}
+
+type MapStatePropsType = {
+    captchaUrl: string | null
+    isAuth: boolean
+}
+
+type MapDispatchPropsType = {
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => {}
+}
+
+const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = ({loginTC, isAuth, captchaUrl}) => {
     const onSubmit = (formData) => {
         loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     };
@@ -80,7 +64,7 @@ const Login = ({loginTC, isAuth, captchaUrl}) => {
     </div>
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
