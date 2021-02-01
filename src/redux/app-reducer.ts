@@ -4,14 +4,13 @@ const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 
 export type initialStateType = {
     initialized: boolean
-
 }
 
 let initialState: initialStateType = {
     initialized: false,
     };
 
-const appReducer = (state = initialState, action: any): initialStateType  => {
+const appReducer = (state = initialState, action: initializedSuccessActionType): initialStateType  => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
