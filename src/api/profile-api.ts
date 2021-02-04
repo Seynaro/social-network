@@ -3,7 +3,7 @@ import {instance} from "./api";
 
 export const profileAPI = {
 	getProfile(userId: number) {
-		return instance.get(`profile/${userId}`)
+		return instance.get<ProfileType>(`profile/${userId}`).then(res => res.data)
 	},
 	getStatus(userId: number) {
 		return instance.get(`profile/status/${userId}`)
