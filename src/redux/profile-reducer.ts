@@ -1,4 +1,4 @@
-import {profileAPI} from "../api/api";
+import {profileAPI} from "../api/profile-api";
 import {stopSubmit} from "redux-form";
 import {ProfileType, PostType, PhotosType} from "../types/types";
 
@@ -84,20 +84,17 @@ const setStatusAC = (status: string): SetStatusACType => ({type: SET_STATUS, sta
 const savePhotoSuccessAC = (photos: PhotosType): SavePhotoSuccessACType => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 export const getUserProfileTC = (userId: number) => async (dispatch: any) => {
-    let response = await profileAPI.getProfile(userId)
-
-    dispatch(setUserProfileAC(response.data));
+    let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(data));
 };
 
 export const getStatusTC = (userId: number) => async (dispatch: any) => {
     let response = await profileAPI.getStatus(userId)
-
     dispatch(setStatusAC(response.data));
 };
 
 export const updateStatusTC = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status)
-
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status));
     }
@@ -105,7 +102,6 @@ export const updateStatusTC = (status: string) => async (dispatch: any) => {
 
 export const savePhotoTC = (file: any) => async (dispatch: any) => {
     let response = await profileAPI.savePhoto(file)
-
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccessAC(response.data.data.photos));
     }
