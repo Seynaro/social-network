@@ -30,12 +30,12 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return {
                 ...state,
                 ...action.payload,
-            };
+            }
         case SET_CAPTCHA_URL_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
-            };
+            }
         default:
             return state;
     }
@@ -93,8 +93,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
 };
 
 export const getCaptchaUrlTC = () => async (dispatch: DispatchType) => {
-    const response = await securityAPI.getCaptchaUrl()
-    const captchaUrl = response.data.url;
+    const data = await securityAPI.getCaptchaUrl()
+    const captchaUrl = data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl))
     };
 

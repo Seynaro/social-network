@@ -50,7 +50,7 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos} as ProfileType}
-            };
+            }
         default:
             return state;
     }
@@ -89,32 +89,32 @@ export const getUserProfileTC = (userId: number) => async (dispatch: any) => {
 };
 
 export const getStatusTC = (userId: number) => async (dispatch: any) => {
-    let response = await profileAPI.getStatus(userId)
-    dispatch(setStatusAC(response.data));
+    let data = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(data));
 };
 
 export const updateStatusTC = (status: string) => async (dispatch: any) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+    let data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
         dispatch(setStatusAC(status));
     }
 };
 
 export const savePhotoTC = (file: any) => async (dispatch: any) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccessAC(response.data.data.photos));
+    let data = await profileAPI.savePhoto(file)
+    if (data.resultCode === 0) {
+        dispatch(savePhotoSuccessAC(data.data.photos));
     }
 };
 
 export const saveProfileTC = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId
-    const response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    const data = await profileAPI.saveProfile(profile)
+    if (data.resultCode === 0) {
         dispatch(getUserProfileTC(userId));
     } else {
-        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}))
-    return Promise.reject(response.data.messages[0])
+        dispatch(stopSubmit("edit-profile", {_error: data.messages[0]}))
+    return Promise.reject(data.messages[0])
     }
 };
 
