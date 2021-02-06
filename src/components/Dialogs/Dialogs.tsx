@@ -4,13 +4,17 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {AddMessageFormRedux} from "./AddMessageForm/AddMessageForm";
 
+type PropsType = {
+    dialogsPage:
+}
+
 const Dialogs = ({dialogsPage, sendMessage}) => {
     let state = dialogsPage;
 
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name}/>);
     let messageElements = state.messages.map(m => <Message message={m.message}/>);
 
-    let addNewMessage = (values) => {
+    let addNewMessage = (values: string) => {
         sendMessage(values.newMessageBody)
     };
 
