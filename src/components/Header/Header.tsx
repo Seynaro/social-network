@@ -2,7 +2,13 @@ import React from 'react';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 
-const Header = (props) => {
+type PropsType = {
+    isAuth: boolean
+    login: string | null
+    logoutTC: () => void
+}
+
+const Header: React.FC<PropsType> = (props) => {
     return <header className={classes.header}>
         <img
             src='https://static6.depositphotos.com/1035649/553/v/450/depositphotos_5537406-stock-illustration-sign-friendship-love.jpg'>
