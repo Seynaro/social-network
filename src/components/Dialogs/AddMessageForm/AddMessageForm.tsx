@@ -5,7 +5,7 @@ import React from "react";
 
 const maxLength100 = maxLengthCreator(100);
 
-const AddMessageForm = (props) => {
+const AddMessageForm: React.FC = (props:any) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
