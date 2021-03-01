@@ -1,35 +1,37 @@
-import React from 'react';
-import { UserType } from '../../types/types';
-import Paginator from "../Common/Paginator/Paginator";
+import React, {FC} from 'react';
 import User from "./User";
+import {UserType} from '../../types/types';
+import Paginator from '../Common/Paginator/Paginator';
 
 type PropsType = {
-    totalUserCount: number
+    totalUsersCount: number
     pageSize: number
     currentPage: number
-    followingInProgress: Array<number>
-    followTC: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    unfollowTC: (userId: number) => void
     users: Array<UserType>
+    followingInProgress: Array<number>
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
 }
 
-let Users: React.FC<PropsType> = ({totalUserCount, pageSize, currentPage, followingInProgress, followTC, onPageChanged, unfollowTC, users}) => {
 
-
+let Users: FC<PropsType> = ({currentPage, totalUsersCount, pageSize, onPageChanged, users,
+                                ...props}) => {
     return <div>
-        <Paginator currentPage={currentPage}
-                   onPageChanged={onPageChanged}
-                   totalItemsCount={totalUserCount}
-                   pageSize={pageSize}
-                   />
+        <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
+                   totalItemsCount={totalUsersCount} pageSize={pageSize}/>
         <div>
-            {users.map(u => <User u={u} key={u.id}
-                                  followingInProgress={followingInProgress}
-                                  unfollowTC={unfollowTC}
-                                  followTC={followTC}/>)}
+            {
+                users.map(u => <User user={u}
+                                     followingInProgress={props.followingInProgress}
+                                     key={u.id}
+                                     unfollow={props.unfollow}
+                                     follow={props.follow}
+                    />
+                )
+            }
         </div>
     </div>
-};
+}
 
 export default Users;
