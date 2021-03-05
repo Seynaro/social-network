@@ -1,20 +1,20 @@
 import axios from "axios";
-import {UserType} from "../types/types";
+import {UserType} from '../types/types';
 
 export const instance = axios.create({
 	withCredentials: true,
-	baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-	headers: {
+	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+	headers:     {
 		"API-KEY": "5066bc69-e929-457a-9ecc-2cace5a9ca22"
-	},
+	}
 });
 
 export enum ResultCodesEnum {
 	Success = 0,
-	Error = 1,
+	Error = 1
 }
 
-export enum ResultCodeForCaptchaEnum {
+export enum ResultCodeForCapcthaEnum {
 	CaptchaIsRequired = 10
 }
 
@@ -25,6 +25,6 @@ export type GetItemsType = {
 }
 export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
 	data: D
-	resultCode: RC
 	messages: Array<string>
+	resultCode: RC
 }
