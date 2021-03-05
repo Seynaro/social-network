@@ -7,7 +7,7 @@ import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
-import Preloader from "./components/Common/Preloader";
+import Preloader from "./components/Common/Preloader/Preloader";
 import {HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {withSuspense} from "./hoc/withSuspense";
 import store from "./redux/redux-store";
