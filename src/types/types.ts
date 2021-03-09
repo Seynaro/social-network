@@ -11,7 +11,7 @@ export type ContactsType = {
     twitter: string
     website: string
     youtube: string
-    mainlink: string
+    mainLink: string
 }
 export type PhotosType = {
     small: string | null
@@ -24,10 +24,13 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+    aboutMe: string
 }
+
 export type UserType = {
     id: number
     name: string
     status: string
     photos: PhotosType
+    followed: boolean
 }
