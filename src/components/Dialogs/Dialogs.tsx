@@ -1,38 +1,66 @@
-import React from "react";
-import s from "./Dialogs.module.css"
-import Message from "./Message/Message";
+import React from 'react';
+import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
-import {AddMessageFormRedux} from "./AddMessageForm/AddMessageForm";
+import Message from "./Message/Message";
+import {Redirect} from "react-router-dom";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
+import {InitialStateType} from '../../redux/dialogs-reducer';
 
 type PropsType = {
-    dialogsPage:
+    dialogsPage: InitialStateType
+    sendMessage: (messageText: string) => void
 }
 
-const Dialogs = ({dialogsPage, sendMessage}) => {
-    let state = dialogsPage;
+export type NewMessageFormValuesType = {
+    newMessageBody: string
+}
 
-    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name}/>);
-    let messageElements = state.messages.map(m => <Message message={m.message}/>);
+const Dialogs: React.FC<PropsType> = (props) => {
+    let state = props.dialogsPage;
 
-    let addNewMessage = (values: string) => {
-        sendMessage(values.newMessageBody)
-    };
+    let dialogsElements = state.dialogs.map( d => <DialogItem name={d.name} key={d.id} id={d.id} />  );
+    let messagesElements = state.messages.map( m => <Message message={m.message} key={m.id} /> );
 
-
+    let addNewMessage = (values: NewMessageFormValuesType) => {
+        props.sendMessage(values.newMessageBody);
+    }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {dialogsElements}
+                { dialogsElements }
             </div>
             <div className={s.messages}>
-                <div>{messageElements}</div>
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
+                <div>{ messagesElements }</div>
             </div>
+            <AddMessageForm onSubmit={addNewMessage} />
         </div>
     )
-};
-
-
+}
 
 export default Dialogs;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
